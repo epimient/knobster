@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
       copyBtn.classList.add('copied');
 
       setTimeout(() => {
-        copyBtn.textContent = '📋 Copy';
+        copyBtn.textContent = 'Copy';
         copyBtn.classList.remove('copied');
       }, 1800);
     }
