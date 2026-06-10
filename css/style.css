@@ -1,8 +1,3 @@
-/* ─────────────────────────────────────────────
-   Knobster — Landing Page Styles
-   ───────────────────────────────────────────── */
-
-/* Reset & Base */
 *, *::before, *::after {
   margin: 0;
   padding: 0;
@@ -11,15 +6,14 @@
 
 html {
   font-size: 16px;
-  scroll-behavior: smooth;
 }
 
 body {
-  background: #0d0d0d;
-  color: #ffffff;
+  background: #0a0a0a;
+  color: #fff;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-  font-weight: 500;
-  line-height: 1.7;
+  font-weight: 700;
+  line-height: 1.5;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -28,57 +22,30 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ─── Typography ─── */
-
-h2 {
-  font-size: 1.25rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  color: #ffffff;
+main {
+  max-width: 640px;
+  width: 100%;
+  padding: 4rem 1.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
 }
 
-h3 {
-  font-size: 1rem;
-  font-weight: 700;
+a {
+  color: #fff;
+  text-decoration: none;
+  border-bottom: 1.5px solid rgba(255,255,255,0.25);
+  transition: border-color .15s;
 }
 
-p {
-  color: #aaaaaa;
-  font-weight: 400;
-}
-
-strong {
-  font-weight: 600;
-  color: #ffffff;
+a:hover {
+  border-color: #fff;
 }
 
 code {
   font-family: 'Noto Sans Mono', 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
   font-weight: 500;
-}
-
-a {
-  color: #ffffff;
-  text-decoration: none;
-  border-bottom: 1.5px solid rgba(255,255,255,0.3);
-  transition: border-color 0.2s;
-  font-weight: 600;
-}
-
-a:hover {
-  border-color: #ffffff;
-}
-
-/* ─── Layout ─── */
-
-main {
-  max-width: 680px;
-  width: 100%;
-  padding: 3rem 1.5rem 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2.5rem;
 }
 
 /* ─── Hero ─── */
@@ -91,267 +58,152 @@ main {
   gap: 1.5rem;
 }
 
-.ascii-logo {
+.ascii {
   font-family: 'Noto Sans Mono', 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
-  font-size: clamp(0.45rem, 1.2vw, 0.7rem);
+  font-size: clamp(.45rem, 1.2vw, .7rem);
   font-weight: 700;
   line-height: 1.15;
-  color: #ffffff;
+  color: #fff;
   text-align: center;
   white-space: pre;
   user-select: none;
 }
 
-.github-btn {
+.gh {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  background: #ffffff;
-  color: #0d0d0d;
-  padding: 0.65rem 1.25rem;
+  gap: .5rem;
+  background: #fff;
+  color: #0a0a0a;
+  padding: .6rem 1.25rem;
   border-radius: 8px;
-  font-weight: 700;
-  font-size: 0.9rem;
-  transition: all 0.15s;
+  font-weight: 800;
+  font-size: .85rem;
+  transition: all .15s;
   border: none;
 }
 
-.github-btn:hover {
-  background: #e0e0e0;
+.gh:hover {
+  background: #e5e5e5;
   transform: scale(1.03);
   border-color: transparent;
 }
 
-/* ─── Description ─── */
-
-.description {
-  text-align: center;
-  max-width: 580px;
+.gh svg {
+  flex-shrink: 0;
 }
 
-.description p {
-  font-size: 0.95rem;
-  line-height: 1.7;
-}
+/* ─── Command box ─── */
 
-/* ─── How it works ─── */
-
-.how-it-works {
+.cmd {
   width: 100%;
 }
 
-.how-it-works p {
-  font-size: 0.9rem;
-  margin-bottom: 1rem;
-}
-
-.how-it-works code {
-  font-size: 0.85rem;
-  color: #cccccc;
-  background: #1a1a1a;
-  padding: 0.1rem 0.4rem;
-  border-radius: 4px;
-}
-
-.diagram {
-  background: #1a1a1a;
+.cmd-box {
+  background: #141414;
   border: 1.5px solid #2a2a2a;
-  border-radius: 10px;
-  padding: 1rem;
-  overflow-x: auto;
-}
-
-.diagram pre {
-  font-family: 'Noto Sans Mono', 'JetBrains Mono', 'Fira Code', monospace;
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: #888888;
-  line-height: 1.6;
-  white-space: pre;
-}
-
-/* ─── Install ─── */
-
-.install-section {
-  width: 100%;
-}
-
-.install-section h2 {
-  text-align: center;
-}
-
-.install-box {
-  background: #1a1a1a;
-  border: 1.5px solid #333;
   border-radius: 10px;
   padding: 1rem 1.25rem;
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  transition: border-color 0.2s;
+  gap: .75rem;
 }
 
-.install-box:focus-within {
-  border-color: #555;
-}
-
-.install-box code {
-  font-size: 0.77rem;
-  color: #cccccc;
+.cmd-box code {
+  font-size: .78rem;
+  color: #ccc;
   flex: 1;
   word-break: break-all;
   line-height: 1.5;
 }
 
-.copy-btn {
-  background: #ffffff;
-  color: #0d0d0d;
+.copy {
+  background: #fff;
+  color: #0a0a0a;
   border: none;
   border-radius: 7px;
-  padding: 0.5rem 1rem;
+  padding: .45rem 1rem;
   font-family: inherit;
-  font-size: 0.8rem;
-  font-weight: 700;
+  font-size: .78rem;
+  font-weight: 800;
   cursor: pointer;
   white-space: nowrap;
-  transition: all 0.15s;
+  transition: all .12s;
   flex-shrink: 0;
 }
 
-.copy-btn:hover {
-  background: #e0e0e0;
+.copy:hover {
+  background: #e5e5e5;
   transform: scale(1.02);
 }
 
-.copy-btn:active {
-  transform: scale(0.97);
+.copy:active {
+  transform: scale(.97);
 }
 
-.copy-btn.copied {
+.copy.copied {
   background: #22c55e;
-  color: #ffffff;
-}
-
-.install-note {
-  font-size: 0.8rem;
-  color: #666666;
-  text-align: center;
-  margin-top: 0.75rem;
+  color: #fff;
 }
 
 /* ─── Modes ─── */
 
 .modes {
   width: 100%;
-}
-
-.modes h2 {
-  text-align: center;
-}
-
-.features {
-  width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0.75rem;
+  gap: .75rem;
 }
 
-.feature-card {
-  background: #1a1a1a;
+.mode {
+  background: #141414;
   border: 1.5px solid #2a2a2a;
   border-radius: 10px;
-  padding: 1.25rem;
+  padding: 1.1rem 1.25rem;
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
-  transition: border-color 0.2s;
+  gap: .2rem;
+  transition: border-color .15s;
 }
 
-.feature-card:hover {
+.mode:hover {
   border-color: #444;
 }
 
-.feature-card h3 {
-  font-size: 0.95rem;
+.mode h3 {
+  font-size: .95rem;
   font-weight: 700;
-  color: #ffffff;
+  color: #fff;
 }
 
-.feature-card p {
-  font-size: 0.78rem;
-  font-weight: 400;
-  color: #777777;
+.mode p {
+  font-size: .78rem;
+  font-weight: 500;
+  color: #777;
   line-height: 1.4;
 }
 
-/* ─── Commands ─── */
+/* ─── Tags ─── */
 
-.commands-section {
-  width: 100%;
-  text-align: center;
-}
-
-.commands-section h2 {
-  margin-bottom: 1rem;
-}
-
-.commands-grid {
+.tags {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0.5rem;
+  gap: .5rem;
 }
 
-.command-tag {
-  background: #1a1a1a;
+.tags code {
+  background: #141414;
   border: 1.5px solid #2a2a2a;
   border-radius: 8px;
-  padding: 0.5rem 1rem;
-  font-size: 0.8rem;
-  color: #cccccc;
-  transition: border-color 0.2s;
+  padding: .45rem 1rem;
+  font-size: .8rem;
+  color: #ccc;
+  transition: border-color .15s;
 }
 
-.command-tag:hover {
+.tags code:hover {
   border-color: #444;
-}
-
-/* ─── Requirements ─── */
-
-.requirements {
-  width: 100%;
-}
-
-.requirements h2 {
-  text-align: center;
-}
-
-.requirements ul {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.requirements li {
-  font-size: 0.85rem;
-  color: #aaaaaa;
-  font-weight: 400;
-  padding-left: 1.25rem;
-  position: relative;
-}
-
-.requirements li::before {
-  content: ">";
-  position: absolute;
-  left: 0;
-  color: #555555;
-  font-family: 'Noto Sans Mono', monospace;
-  font-weight: 700;
-}
-
-.requirements li a {
-  font-weight: 600;
 }
 
 /* ─── Footer ─── */
@@ -360,40 +212,41 @@ footer {
   width: 100%;
   text-align: center;
   padding-top: 1rem;
-  border-top: 1.5px solid #1a1a1a;
-  font-size: 0.82rem;
-  color: #666666;
+  border-top: 1.5px solid #141414;
+  font-size: .82rem;
+  color: #666;
+  font-weight: 500;
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
+  gap: .25rem;
 }
 
 footer a {
-  font-weight: 600;
+  font-weight: 700;
 }
 
 /* ─── Responsive ─── */
 
 @media (max-width: 500px) {
   main {
-    padding: 2rem 1rem 1.5rem;
+    padding: 2.5rem 1rem 1.5rem;
     gap: 2rem;
   }
 
-  .ascii-logo {
-    font-size: clamp(0.3rem, 2.5vw, 0.45rem);
+  .ascii {
+    font-size: clamp(.3rem, 2.5vw, .45rem);
   }
 
-  .features {
+  .modes {
     grid-template-columns: 1fr;
   }
 
-  .install-box {
+  .cmd-box {
     flex-direction: column;
     align-items: stretch;
   }
 
-  .copy-btn {
+  .copy {
     text-align: center;
   }
 }
