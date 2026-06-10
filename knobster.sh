@@ -38,6 +38,17 @@ RESET='\033[0m'
 RAINBOW=("$RED" "$YELLOW" "$GREEN" "$CYAN" "$MAGENTA")
 
 # ═══════════════════════════════════════════════
+#  LOGS
+# ═══════════════════════════════════════════════
+
+log_info()  { echo -e "  ${CYAN}▸${RESET} $*"; }
+log_ok()    { echo -e "  ${GREEN}✔${RESET} $*"; }
+log_warn()  { echo -e "  ${YELLOW}⚠${RESET} $*"; }
+log_error() { echo -e "  ${RED}✘${RESET} $*" >&2; }
+log_step()  { echo -e "  ${BOLD}${MAGENTA}──${RESET} ${BOLD}$*${RESET}"; }
+log_debug() { echo -e "  ${GRAY}· $*${RESET}"; }
+
+# ═══════════════════════════════════════════════
 #  BANNER
 # ═══════════════════════════════════════════════
 
@@ -100,16 +111,37 @@ require_keyd() {
 }
 
 reload_keyd() {
+    log_step "Aplicando configuración a keyd..."
+
+    log_info "Intentando recarga en caliente (keyd reload)..."
     if keyd reload >/dev/null 2>&1; then
-        echo -e "  ${GREEN}✔${RESET} keyd recargado correctamente."
-    else
-        die "No se pudo recargar keyd."
+        log_ok "keyd recargado correctamente."
+        return 0
     fi
+
+    log_warn "Recarga en caliente falló. Posiblemente el daemon no responde."
+    log_info "Intentando reiniciar el servicio (systemctl restart keyd)..."
+    log_debug "Esto puede ocurrir si el servicio keyd se cayó (SEGV, etc.)."
+
+    if systemctl restart keyd >/dev/null 2>&1; then
+        log_ok "Servicio keyd reiniciado exitosamente."
+        return 0
+    fi
+
+    log_error "No se pudo recargar ni reiniciar keyd."
+    log_error "Verifica el estado con: sudo systemctl status keyd"
+    log_error "Si el servicio está caído, revisa los logs: journalctl -u keyd --no-pager -n 20"
+    die "keyd no responde."
 }
 
 write_config() {
     local mode_name="$1"
     local config_body="$2"
+
+    log_step "Configurando modo: $mode_name"
+    log_info "Escribiendo archivo de configuración..."
+    log_debug "Archivo: $CONFIG_FILE"
+    log_debug "ID teclado: $KEYBOARD_ID"
 
     cat >"$CONFIG_FILE" <<EOF
 # Knobster
@@ -123,6 +155,16 @@ $KEYBOARD_ID
 $config_body
 EOF
 
+    if [[ -f "$CONFIG_FILE" ]]; then
+        local size
+        size=$(wc -c < "$CONFIG_FILE")
+        log_ok "Archivo escrito correctamente ($size bytes)."
+    else
+        log_error "No se pudo escribir el archivo de configuración."
+        log_error "Verifica permisos de escritura en $CONFIG_FILE"
+        die "Error al escribir configuración."
+    fi
+
     reload_keyd
 }
 
@@ -132,6 +174,11 @@ EOF
 
 mode_editing() {
     clear
+    log_step "Preparando modo Editar Timeline..."
+    log_info "Rueda arriba  → macro(right right right) — avanzar"
+    log_info "Rueda abajo   → macro(left left left)  — retroceder"
+    log_info "Botón rueda   → space                   — play/pause"
+    echo
     write_config "Edicion / Timeline" "[main]
 
 volumeup = macro(right right right)
@@ -148,6 +195,11 @@ mute = space
 
 mode_programmer() {
     clear
+    log_step "Preparando modo Programar Cursor..."
+    log_info "Rueda arriba  → up    — cursor arriba"
+    log_info "Rueda abajo   → down  — cursor abajo"
+    log_info "Botón rueda   → enter — confirmar"
+    echo
     write_config "Programador / Cursor" "[main]
 
 volumeup = up
@@ -164,8 +216,19 @@ mute = enter
 
 mode_multimedia() {
     clear
-    rm -f "$CONFIG_FILE"
+    log_step "Cambiando a modo Multimedia..."
+
+    if [[ -f "$CONFIG_FILE" ]]; then
+        log_info "Eliminando configuración personalizada..."
+        rm -f "$CONFIG_FILE"
+        log_ok "Archivo eliminado: $CONFIG_FILE"
+    else
+        log_info "No había configuración personalizada activa."
+    fi
+
+    log_info "Restaurando comportamiento por defecto de la rueda..."
     reload_keyd
+
     echo
     echo -e "  ${GREEN}━━━ Modo Multimedia activado ━━━${RESET}"
     echo -e "  ${CYAN}↻${RESET} Rueda → ${BOLD}volumen normal${RESET}"
@@ -286,6 +349,12 @@ guided_customize() {
     pick_or_custom "¿Qué hace al ${BOLD}PRESIONAR${RESET} la rueda?" btn_opts btn_vals wheel_btn
 
     # --- Apply ---
+    echo
+    log_step "Aplicando configuración personalizada..."
+    log_info "Rueda arriba  → $wheel_up"
+    log_info "Rueda abajo   → $wheel_down"
+    log_info "Botón rueda   → $wheel_btn"
+
     local config_body
     config_body="[main]
 
@@ -312,6 +381,7 @@ edit_config() {
     echo
 
     if [[ ! -f "$CONFIG_FILE" ]]; then
+        log_info "No existe archivo de configuración. Creando uno por defecto..."
         cat >"$CONFIG_FILE" <<EOF
 # Knobster - Configuración personalizada
 # Edita este archivo y guarda para aplicar cambios.
@@ -326,21 +396,21 @@ volumeup = right
 volumedown = left
 mute = space
 EOF
-        echo -e "  ${YELLOW}Archivo creado: $CONFIG_FILE${RESET}"
+        log_ok "Archivo creado: $CONFIG_FILE"
         echo
     fi
 
-    echo -e "  Abriendo ${BOLD}$EDITOR${RESET} ..."
-    echo -e "  ${DIM}Archivo: $CONFIG_FILE${RESET}"
+    log_info "Abriendo editor: ${BOLD}$EDITOR${RESET}"
+    log_debug "Archivo: $CONFIG_FILE"
+    log_debug "Para usar otro editor: export EDITOR=vim (o code, nano, etc.)"
     echo
     sleep 1
 
     $EDITOR "$CONFIG_FILE"
 
     echo
-    if reload_keyd; then
-        echo -e "  ${GREEN}✔${RESET} Configuración aplicada desde el editor."
-    fi
+    log_info "Editor cerrado. Aplicando cambios..."
+    reload_keyd
     sleep 1.5
 }
 
