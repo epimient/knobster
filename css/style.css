@@ -258,18 +258,40 @@ main {
 footer {
   width: 100%;
   text-align: center;
-  padding-top: 1rem;
+  padding-top: 1.25rem;
   border-top: 1.5px solid #141414;
-  font-size: .82rem;
-  color: #666;
-  font-weight: 500;
   display: flex;
   flex-direction: column;
-  gap: .25rem;
+  gap: .35rem;
 }
 
-footer a {
-  font-weight: 700;
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: .5rem;
+  flex-wrap: wrap;
+}
+
+.footer-links a {
+  font-size: .82rem;
+  font-weight: 600;
+  color: #666;
+  border-bottom: none;
+  padding: .25rem .5rem;
+  border-radius: 6px;
+  transition: all .12s;
+}
+
+.footer-links a:hover {
+  color: #fff;
+  background: #141414;
+  border-bottom: none;
+}
+
+.footer-copy {
+  font-size: .75rem;
+  font-weight: 400;
+  color: #444;
 }
 
 /* ═══════════════════════════════════════════════
