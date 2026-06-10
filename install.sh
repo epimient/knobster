@@ -46,6 +46,7 @@ echo
 
 detect_distro() {
     if [[ -f /etc/os-release ]]; then
+        # shellcheck source=/dev/null
         . /etc/os-release
         echo "$ID"
     elif command -v lsb_release &>/dev/null; then
@@ -72,11 +73,11 @@ install_keyd() {
             apt update -qq && apt install -y -qq git build-essential
             log_info "Clonando keyd..."
             git clone --depth 1 https://github.com/rvaiya/keyd /tmp/keyd
-            cd /tmp/keyd
+            cd /tmp/keyd || exit
             make
             make install
             systemctl enable --now keyd
-            cd "$SCRIPT_DIR"
+            cd "$SCRIPT_DIR" || exit
             rm -rf /tmp/keyd
             ;;
         arch)
@@ -90,9 +91,9 @@ install_keyd() {
                 log_info "Instalando yay primero..."
                 pacman -S --noconfirm --needed git base-devel
                 git clone --depth 1 https://aur.archlinux.org/yay.git /tmp/yay
-                cd /tmp/yay
+                cd /tmp/yay || exit
                 makepkg -si --noconfirm
-                cd "$SCRIPT_DIR"
+                cd "$SCRIPT_DIR" || exit
                 rm -rf /tmp/yay
                 yay -S --noconfirm keyd
             fi
@@ -102,22 +103,22 @@ install_keyd() {
             log_info "Detectado: Fedora"
             dnf install -y git gcc
             git clone --depth 1 https://github.com/rvaiya/keyd /tmp/keyd
-            cd /tmp/keyd
+            cd /tmp/keyd || exit
             make
             make install
             systemctl enable --now keyd
-            cd "$SCRIPT_DIR"
+            cd "$SCRIPT_DIR" || exit
             rm -rf /tmp/keyd
             ;;
         *)
             log_error "Distribución no detectada automáticamente."
             log_info "Instalando keyd desde fuente..."
             git clone --depth 1 https://github.com/rvaiya/keyd /tmp/keyd
-            cd /tmp/keyd
+            cd /tmp/keyd || exit
             make
             make install
             systemctl enable --now keyd
-            cd "$SCRIPT_DIR"
+            cd "$SCRIPT_DIR" || exit
             rm -rf /tmp/keyd
             ;;
     esac

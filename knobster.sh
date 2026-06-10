@@ -38,9 +38,11 @@ KEYBOARD_ID="${KEYBOARD_ID:-320f:505b}"
 RED='\033[31m'
 GREEN='\033[32m'
 YELLOW='\033[33m'
+# shellcheck disable=SC2034
 BLUE='\033[34m'
 MAGENTA='\033[35m'
 CYAN='\033[36m'
+# shellcheck disable=SC2034
 WHITE='\033[37m'
 GRAY='\033[90m'
 BOLD='\033[1m'
@@ -304,6 +306,7 @@ guided_customize() {
     echo
 
     # --- Wheel up ---
+    # shellcheck disable=SC2034
     local up_opts=(
         "Flecha derecha →"
         "Flecha derecha x3 →→→"
@@ -312,6 +315,7 @@ guided_customize() {
         "Avanzar página (PageDown)"
         "✏  Escribir comando manualmente"
     )
+    # shellcheck disable=SC2034
     local up_vals=(
         "right"
         "macro(right right right)"
@@ -324,6 +328,7 @@ guided_customize() {
     pick_or_custom "¿Qué hace la rueda al girar ${BOLD}ARRIBA${RESET}?" up_opts up_vals wheel_up
 
     # --- Wheel down ---
+    # shellcheck disable=SC2034
     local down_opts=(
         "Flecha izquierda ←"
         "Flecha izquierda x3 ←←←"
@@ -332,6 +337,7 @@ guided_customize() {
         "Retroceder página (PageUp)"
         "✏  Escribir comando manualmente"
     )
+    # shellcheck disable=SC2034
     local down_vals=(
         "left"
         "macro(left left left)"
@@ -344,6 +350,7 @@ guided_customize() {
     pick_or_custom "¿Qué hace la rueda al girar ${BOLD}ABAJO${RESET}?" down_opts down_vals wheel_down
 
     # --- Button ---
+    # shellcheck disable=SC2034
     local btn_opts=(
         "Espacio (Play / Pause)"
         "Enter"
@@ -352,6 +359,7 @@ guided_customize() {
         "Ctrl + S (Guardar)"
         "✏  Escribir comando manualmente"
     )
+    # shellcheck disable=SC2034
     local btn_vals=(
         "space"
         "enter"
