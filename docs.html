@@ -21,154 +21,171 @@
     </div>
   </nav>
 
-  <main class="docs-content">
+  <div class="docs-layout">
 
-    <h1>Documentation</h1>
-    <p class="docs-subtitle">Learn how to install, configure, and use Knobster to control your keyboard wheel.</p>
+    <aside class="docs-sidebar">
+      <nav class="sidebar-nav">
+        <a href="#how-it-works">How it works</a>
+        <a href="#requirements">Requirements</a>
+        <a href="#installation">Installation</a>
+        <a href="#configuration">Configuration</a>
+        <a href="#usage">Usage</a>
+        <a href="#modes">Modes</a>
+        <a href="#customization">Customization</a>
+        <a href="#project-structure">Project structure</a>
+        <a href="#troubleshooting">Troubleshooting</a>
+        <a href="#keyboards">Compatible keyboards</a>
+      </nav>
+    </aside>
 
-    <hr>
+    <main class="docs-content">
 
-    <h2>How it works</h2>
-    <p>Knobster uses <strong>keyd</strong>, a Linux daemon that remaps keys at the system level. When you select a mode, Knobster writes a config file to <code>/etc/keyd/knobster.conf</code> with the remapping rules and tells keyd to reload.</p>
-    <p>The <code>volumeup</code>, <code>volumedown</code>, and <code>mute</code> signals from your keyboard get converted into the keys or macros you choose. When you select "Multimedia", the config file is removed and keyd falls back to default volume behavior.</p>
-    <p>Your <code>/etc/keyd/default.conf</code> is never modified. Your general keyd configuration stays intact.</p>
+      <h1>Documentation</h1>
+      <p class="docs-subtitle">Learn how to install, configure, and use Knobster to control your keyboard wheel.</p>
 
-    <div class="diagram">
-      <pre>  Keyboard wheel  ───→  keyd intercepts  ───→  Assigned action
+      <hr>
+
+      <h2 id="how-it-works">How it works</h2>
+      <p>Knobster uses <strong>keyd</strong>, a Linux daemon that remaps keys at the system level. When you select a mode, Knobster writes a config file to <code>/etc/keyd/knobster.conf</code> with the remapping rules and tells keyd to reload.</p>
+      <p>The <code>volumeup</code>, <code>volumedown</code>, and <code>mute</code> signals from your keyboard get converted into the keys or macros you choose. When you select "Multimedia", the config file is removed and keyd falls back to default volume behavior.</p>
+      <p>Your <code>/etc/keyd/default.conf</code> is never modified. Your general keyd configuration stays intact.</p>
+
+      <div class="diagram">
+        <pre>  Keyboard wheel  ───→  keyd intercepts  ───→  Assigned action
                                ▲
                                │
                        knobster.sh
                       (writes config)</pre>
-    </div>
+      </div>
 
-    <hr>
+      <hr>
 
-    <h2>Requirements</h2>
-    <ul>
-      <li><strong>OS:</strong> Linux (tested on Ubuntu 24.04, works on any distro)</li>
-      <li><strong>keyd:</strong> Key remapping daemon — <a href="https://github.com/rvaiya/keyd">github.com/rvaiya/keyd</a></li>
-      <li><strong>Keyboard:</strong> Mechanical keyboard with a volume wheel detectable by keyd (AK820, Keychron, etc.)</li>
-      <li><strong>Terminal:</strong> ANSI color support (most modern terminals)</li>
-      <li><strong>Shell:</strong> bash 4.0 or higher</li>
-    </ul>
+      <h2 id="requirements">Requirements</h2>
+      <ul>
+        <li><strong>OS:</strong> Linux (tested on Ubuntu 24.04, works on any distro)</li>
+        <li><strong>keyd:</strong> Key remapping daemon — <a href="https://github.com/rvaiya/keyd">github.com/rvaiya/keyd</a></li>
+        <li><strong>Keyboard:</strong> Mechanical keyboard with a volume wheel detectable by keyd (AK820, Keychron, etc.)</li>
+        <li><strong>Terminal:</strong> ANSI color support (most modern terminals)</li>
+        <li><strong>Shell:</strong> bash 4.0 or higher</li>
+      </ul>
 
-    <hr>
+      <hr>
 
-    <h2>Installation</h2>
+      <h2 id="installation">Installation</h2>
 
-    <h3>Quick install (1-liner)</h3>
+      <h3>Quick install (1-liner)</h3>
 
-    <div class="cmd-box">
-      <code>curl -fsSL https://raw.githubusercontent.com/epimient/knobster/main/install.sh | bash</code>
-    </div>
+      <div class="cmd-box">
+        <code>curl -fsSL https://raw.githubusercontent.com/epimient/knobster/main/install.sh | bash</code>
+      </div>
 
-    <p>This installs keyd if needed, detects your keyboard automatically, and leaves Knobster ready to use.</p>
+      <p>This installs keyd if needed, detects your keyboard automatically, and leaves Knobster ready to use.</p>
 
-    <div class="note">
-      <strong>Note:</strong> On Ubuntu/Debian-based distros, the installer compiles keyd from source, which requires <code>git</code>, <code>build-essential</code>, and a few seconds.
-    </div>
+      <div class="note">
+        <strong>Note:</strong> On Ubuntu/Debian-based distros, the installer compiles keyd from source, which requires <code>git</code>, <code>build-essential</code>, and a few seconds.
+      </div>
 
-    <h3>Manual installation</h3>
+      <h3>Manual installation</h3>
 
-    <h4>1. Install keyd</h4>
+      <h4>1. Install keyd</h4>
 
-    <p><strong>Ubuntu / Debian:</strong></p>
-    <div class="code-block">
-      <pre><code>sudo apt update
+      <p><strong>Ubuntu / Debian:</strong></p>
+      <div class="code-block">
+        <pre><code>sudo apt update
 sudo apt install -y git build-essential
 git clone https://github.com/rvaiya/keyd
 cd keyd
 make
 sudo make install
 sudo systemctl enable --now keyd</code></pre>
-    </div>
+      </div>
 
-    <p><strong>Arch Linux:</strong></p>
-    <div class="code-block">
-      <pre><code>yay -S keyd
+      <p><strong>Arch Linux:</strong></p>
+      <div class="code-block">
+        <pre><code>yay -S keyd
 sudo systemctl enable --now keyd</code></pre>
-    </div>
+      </div>
 
-    <p><strong>Fedora:</strong></p>
-    <div class="code-block">
-      <pre><code>sudo dnf install -y git gcc
+      <p><strong>Fedora:</strong></p>
+      <div class="code-block">
+        <pre><code>sudo dnf install -y git gcc
 git clone https://github.com/rvaiya/keyd
 cd keyd
 make
 sudo make install
 sudo systemctl enable --now keyd</code></pre>
-    </div>
+      </div>
 
-    <h4>2. Verify keyd is running</h4>
-    <div class="code-block">
-      <pre><code>sudo systemctl status keyd</code></pre>
-    </div>
-    <p>You should see <code>active (running)</code>. If not:</p>
-    <div class="code-block">
-      <pre><code>sudo systemctl enable --now keyd</code></pre>
-    </div>
+      <h4>2. Verify keyd is running</h4>
+      <div class="code-block">
+        <pre><code>sudo systemctl status keyd</code></pre>
+      </div>
+      <p>You should see <code>active (running)</code>. If not:</p>
+      <div class="code-block">
+        <pre><code>sudo systemctl enable --now keyd</code></pre>
+      </div>
 
-    <h4>3. Download Knobster</h4>
-    <div class="code-block">
-      <pre><code>git clone https://github.com/epimient/knobster ~/knobster
+      <h4>3. Download Knobster</h4>
+      <div class="code-block">
+        <pre><code>git clone https://github.com/epimient/knobster ~/knobster
 cd ~/knobster
 chmod +x knobster.sh</code></pre>
-    </div>
+      </div>
 
-    <hr>
+      <hr>
 
-    <h2>Configuration</h2>
+      <h2 id="configuration">Configuration</h2>
 
-    <h3>Detect your keyboard ID</h3>
-    <p>Each keyboard has a unique identifier keyd needs to know which device to intercept:</p>
-    <div class="code-block">
-      <pre><code>sudo keyd monitor</code></pre>
-    </div>
-    <p>Turn your keyboard wheel. You'll see something like:</p>
-    <div class="code-block">
-      <pre><code>320f:505b:d8fffecf volumeup
+      <h3>Detect your keyboard ID</h3>
+      <p>Each keyboard has a unique identifier keyd needs to know which device to intercept:</p>
+      <div class="code-block">
+        <pre><code>sudo keyd monitor</code></pre>
+      </div>
+      <p>Turn your keyboard wheel. You'll see something like:</p>
+      <div class="code-block">
+        <pre><code>320f:505b:d8fffecf volumeup
 320f:505b:d8fffecf volumedown</code></pre>
-    </div>
-    <p>Copy the first two blocks separated by <code>:</code> — that's your keyboard ID.</p>
+      </div>
+      <p>Copy the first two blocks separated by <code>:</code> — that's your keyboard ID.</p>
 
-    <div class="note">
-      <strong>Note:</strong> The third block (<code>d8fffecf</code>) is a session identifier that changes every time you reconnect the keyboard. keyd only needs the first two blocks.
-    </div>
+      <div class="note">
+        <strong>Note:</strong> The third block (<code>d8fffecf</code>) is a session identifier that changes every time you reconnect the keyboard. keyd only needs the first two blocks.
+      </div>
 
-    <h3>Compatibility with other keyboards</h3>
-    <p>Knobster works with <strong>any keyboard</strong> keyd can detect. Not just the AK820. Keychron, Logitech, Razer, Corsair — same process, different ID.</p>
+      <h3>Compatibility with other keyboards</h3>
+      <p>Knobster works with <strong>any keyboard</strong> keyd can detect. Not just the AK820. Keychron, Logitech, Razer, Corsair — same process, different ID.</p>
 
-    <div class="code-block">
-      <pre><code>sudo KEYBOARD_ID="04d9:a0a2" ./knobster.sh</code></pre>
-    </div>
+      <div class="code-block">
+        <pre><code>sudo KEYBOARD_ID="04d9:a0a2" ./knobster.sh</code></pre>
+      </div>
 
-    <h3>Set KEYBOARD_ID</h3>
-    <p><strong>Option 1 — Environment variable:</strong></p>
-    <div class="code-block">
-      <pre><code>sudo KEYBOARD_ID="320f:505b" ./knobster.sh</code></pre>
-    </div>
+      <h3>Set KEYBOARD_ID</h3>
+      <p><strong>Option 1 — Environment variable:</strong></p>
+      <div class="code-block">
+        <pre><code>sudo KEYBOARD_ID="320f:505b" ./knobster.sh</code></pre>
+      </div>
 
-    <p><strong>Option 2 — User config file (persistent):</strong></p>
-    <p>Knobster reads <code>~/.config/knobster/config</code> if it exists:</p>
-    <div class="code-block">
-      <pre><code>KEYBOARD_ID=320f:505b</code></pre>
-    </div>
+      <p><strong>Option 2 — User config file (persistent):</strong></p>
+      <p>Knobster reads <code>~/.config/knobster/config</code> if it exists:</p>
+      <div class="code-block">
+        <pre><code>KEYBOARD_ID=320f:505b</code></pre>
+      </div>
 
-    <p><strong>Option 3 — Edit the script (persistent):</strong></p>
-    <p>Open <code>knobster.sh</code> and change the <code>KEYBOARD_ID</code> default value.</p>
+      <p><strong>Option 3 — Edit the script (persistent):</strong></p>
+      <p>Open <code>knobster.sh</code> and change the <code>KEYBOARD_ID</code> default value.</p>
 
-    <hr>
+      <hr>
 
-    <h2>Usage</h2>
+      <h2 id="usage">Usage</h2>
 
-    <h3>Interactive menu</h3>
-    <div class="code-block">
-      <pre><code>sudo ./knobster.sh</code></pre>
-    </div>
+      <h3>Interactive menu</h3>
+      <div class="code-block">
+        <pre><code>sudo ./knobster.sh</code></pre>
+      </div>
 
-    <p>Opens the main menu with the full visual interface:</p>
+      <p>Opens the main menu with the full visual interface:</p>
 
-    <div class="diagram">
+      <div class="diagram">
 <pre>  ╭──────────────────────────────────────────────────────╮
   │               ◉  KNOBSTER                            │
   │       Controla tu rueda como quieras                 │
@@ -183,114 +200,114 @@ chmod +x knobster.sh</code></pre>
   │    [5]  Ver estado                                   │
   │    [6]  Salir                                        │
   ╰──────────────────────────────────────────────────────╯</pre>
-    </div>
+      </div>
 
-    <h3>Quick commands</h3>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr><th>Command</th><th>Effect</th></tr>
-        </thead>
-        <tbody>
-          <tr><td><code>sudo ./knobster.sh on</code></td><td>Activate timeline mode</td></tr>
-          <tr><td><code>sudo ./knobster.sh off</code></td><td>Restore normal volume</td></tr>
-          <tr><td><code>sudo ./knobster.sh status</code></td><td>Show current state</td></tr>
-          <tr><td><code>./knobster.sh --help</code></td><td>Show help</td></tr>
-        </tbody>
-      </table>
-    </div>
+      <h3>Quick commands</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Command</th><th>Effect</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>sudo ./knobster.sh on</code></td><td>Activate timeline mode</td></tr>
+            <tr><td><code>sudo ./knobster.sh off</code></td><td>Restore normal volume</td></tr>
+            <tr><td><code>sudo ./knobster.sh status</code></td><td>Show current state</td></tr>
+            <tr><td><code>./knobster.sh --help</code></td><td>Show help</td></tr>
+          </tbody>
+        </table>
+      </div>
 
-    <hr>
+      <hr>
 
-    <h2>Modes</h2>
+      <h2 id="modes">Modes</h2>
 
-    <h3>1. Timeline Editing</h3>
-    <p>Designed for video editors (Kdenlive, DaVinci Resolve, Premiere Pro, etc.).</p>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr><th>Action</th><th>Signal</th><th>Mapping</th><th>Effect</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Wheel up</td><td><code>volumeup</code></td><td><code>macro(right right right)</code></td><td>Move cursor 3 frames right</td></tr>
-          <tr><td>Wheel down</td><td><code>volumedown</code></td><td><code>macro(left left left)</code></td><td>Move cursor 3 frames left</td></tr>
-          <tr><td>Press wheel</td><td><code>mute</code></td><td><code>space</code></td><td>Play / Pause</td></tr>
-        </tbody>
-      </table>
-    </div>
+      <h3>1. Timeline Editing</h3>
+      <p>Designed for video editors (Kdenlive, DaVinci Resolve, Premiere Pro, etc.).</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Action</th><th>Signal</th><th>Mapping</th><th>Effect</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Wheel up</td><td><code>volumeup</code></td><td><code>macro(right right right)</code></td><td>Move cursor 3 frames right</td></tr>
+            <tr><td>Wheel down</td><td><code>volumedown</code></td><td><code>macro(left left left)</code></td><td>Move cursor 3 frames left</td></tr>
+            <tr><td>Press wheel</td><td><code>mute</code></td><td><code>space</code></td><td>Play / Pause</td></tr>
+          </tbody>
+        </table>
+      </div>
 
-    <h3>2. Cursor Programming</h3>
-    <p>Designed for code editors (VS Code, Neovim, IntelliJ, etc.).</p>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr><th>Action</th><th>Signal</th><th>Mapping</th><th>Effect</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Wheel up</td><td><code>volumeup</code></td><td><code>up</code></td><td>Cursor up</td></tr>
-          <tr><td>Wheel down</td><td><code>volumedown</code></td><td><code>down</code></td><td>Cursor down</td></tr>
-          <tr><td>Press wheel</td><td><code>mute</code></td><td><code>enter</code></td><td>Enter / Confirm</td></tr>
-        </tbody>
-      </table>
-    </div>
+      <h3>2. Cursor Programming</h3>
+      <p>Designed for code editors (VS Code, Neovim, IntelliJ, etc.).</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Action</th><th>Signal</th><th>Mapping</th><th>Effect</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Wheel up</td><td><code>volumeup</code></td><td><code>up</code></td><td>Cursor up</td></tr>
+            <tr><td>Wheel down</td><td><code>volumedown</code></td><td><code>down</code></td><td>Cursor down</td></tr>
+            <tr><td>Press wheel</td><td><code>mute</code></td><td><code>enter</code></td><td>Enter / Confirm</td></tr>
+          </tbody>
+        </table>
+      </div>
 
-    <h3>3. Multimedia</h3>
-    <p>Restores the original wheel behavior.</p>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr><th>Action</th><th>Effect</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Wheel up</td><td>Volume up</td></tr>
-          <tr><td>Wheel down</td><td>Volume down</td></tr>
-          <tr><td>Press wheel</td><td>Mute / Unmute</td></tr>
-        </tbody>
-      </table>
-    </div>
+      <h3>3. Multimedia</h3>
+      <p>Restores the original wheel behavior.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Action</th><th>Effect</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Wheel up</td><td>Volume up</td></tr>
+            <tr><td>Wheel down</td><td>Volume down</td></tr>
+            <tr><td>Press wheel</td><td>Mute / Unmute</td></tr>
+          </tbody>
+        </table>
+      </div>
 
-    <h3>4. Custom</h3>
-    <p>Configure each wheel action to your liking (see <a href="#customization">Customization</a>).</p>
+      <h3>4. Custom</h3>
+      <p>Configure each wheel action to your liking (see <a href="#customization">Customization</a>).</p>
 
-    <hr>
+      <hr>
 
-    <h2 id="customization">Customization</h2>
+      <h2 id="customization">Customization</h2>
 
-    <h3>Guided setup</h3>
-    <p>From the main menu, select <strong>4 &gt; 1</strong> and follow three steps:</p>
-    <ol>
-      <li>Choose what the wheel does when turned <strong>up</strong></li>
-      <li>Choose what the wheel does when turned <strong>down</strong></li>
-      <li>Choose what happens when you <strong>press</strong> the wheel</li>
-    </ol>
+      <h3>Guided setup</h3>
+      <p>From the main menu, select <strong>4 &gt; 1</strong> and follow three steps:</p>
+      <ol>
+        <li>Choose what the wheel does when turned <strong>up</strong></li>
+        <li>Choose what the wheel does when turned <strong>down</strong></li>
+        <li>Choose what happens when you <strong>press</strong> the wheel</li>
+      </ol>
 
-    <p>Example keyd commands you can use:</p>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr><th>Command</th><th>Effect</th></tr>
-        </thead>
-        <tbody>
-          <tr><td><code>right</code></td><td>Right arrow</td></tr>
-          <tr><td><code>macro(right right right)</code></td><td>Right arrow x3</td></tr>
-          <tr><td><code>macro(Ctrl right)</code></td><td>Ctrl + Right arrow</td></tr>
-          <tr><td><code>macro(C-s)</code></td><td>Ctrl + S (save)</td></tr>
-          <tr><td><code>up</code></td><td>Up arrow</td></tr>
-          <tr><td><code>pagedown</code></td><td>Page down</td></tr>
-          <tr><td><code>home</code></td><td>Go to start</td></tr>
-          <tr><td><code>esc</code></td><td>Escape</td></tr>
-          <tr><td><code>tab</code></td><td>Tab</td></tr>
-          <tr><td><code>f5</code></td><td>F5 key</td></tr>
-        </tbody>
-      </table>
-    </div>
+      <p>Example keyd commands you can use:</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Command</th><th>Effect</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>right</code></td><td>Right arrow</td></tr>
+            <tr><td><code>macro(right right right)</code></td><td>Right arrow x3</td></tr>
+            <tr><td><code>macro(Ctrl right)</code></td><td>Ctrl + Right arrow</td></tr>
+            <tr><td><code>macro(C-s)</code></td><td>Ctrl + S (save)</td></tr>
+            <tr><td><code>up</code></td><td>Up arrow</td></tr>
+            <tr><td><code>pagedown</code></td><td>Page down</td></tr>
+            <tr><td><code>home</code></td><td>Go to start</td></tr>
+            <tr><td><code>esc</code></td><td>Escape</td></tr>
+            <tr><td><code>tab</code></td><td>Tab</td></tr>
+            <tr><td><code>f5</code></td><td>F5 key</td></tr>
+          </tbody>
+        </table>
+      </div>
 
-    <h3>Direct file editing</h3>
-    <p>From the main menu, select <strong>4 &gt; 2</strong> to open the config file in your editor (<code>nano</code> by default, respects <code>$EDITOR</code> and <code>$VISUAL</code>).</p>
-    <p>The file is at <code>/etc/keyd/knobster.conf</code>. Save and keyd reloads automatically.</p>
+      <h3>Direct file editing</h3>
+      <p>From the main menu, select <strong>4 &gt; 2</strong> to open the config file in your editor (<code>nano</code> by default, respects <code>$EDITOR</code> and <code>$VISUAL</code>).</p>
+      <p>The file is at <code>/etc/keyd/knobster.conf</code>. Save and keyd reloads automatically.</p>
 
-    <div class="code-block">
-      <pre><code># Knobster
+      <div class="code-block">
+        <pre><code># Knobster
 # Modo: Personalizado
 
 [ids]
@@ -302,109 +319,111 @@ chmod +x knobster.sh</code></pre>
 volumeup = macro(right right right)
 volumedown = macro(left left left)
 mute = space</code></pre>
-    </div>
+      </div>
 
-    <hr>
+      <hr>
 
-    <h2>Project structure</h2>
-    <div class="code-block">
-      <pre><code>knobster/
+      <h2 id="project-structure">Project structure</h2>
+      <div class="code-block">
+        <pre><code>knobster/
   banner.txt          ASCII art logo (editable)
   knobster.sh         Main executable script
   README.md           Documentation</code></pre>
-    </div>
+      </div>
 
-    <p>Runtime files:</p>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr><th>File</th><th>Purpose</th></tr>
-        </thead>
-        <tbody>
-          <tr><td><code>/etc/keyd/knobster.conf</code></td><td>Active keyd configuration (generated by Knobster)</td></tr>
-          <tr><td><code>/etc/keyd/default.conf</code></td><td>Default keyd config (never modified)</td></tr>
-        </tbody>
-      </table>
-    </div>
+      <p>Runtime files:</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>File</th><th>Purpose</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>/etc/keyd/knobster.conf</code></td><td>Active keyd configuration (generated by Knobster)</td></tr>
+            <tr><td><code>/etc/keyd/default.conf</code></td><td>Default keyd config (never modified)</td></tr>
+          </tbody>
+        </table>
+      </div>
 
-    <hr>
+      <hr>
 
-    <h2>Troubleshooting</h2>
+      <h2 id="troubleshooting">Troubleshooting</h2>
 
-    <h3>keyd not installed</h3>
-    <div class="code-block">
-      <pre><code>Error: keyd no está instalado.</code></pre>
-    </div>
-    <p>Follow the <a href="#installation">Installation guide</a>.</p>
+      <h3>keyd not installed</h3>
+      <div class="code-block">
+        <pre><code>Error: keyd no está instalado.</code></pre>
+      </div>
+      <p>Follow the <a href="#installation">Installation guide</a>.</p>
 
-    <h3>Wheel does nothing after activating a mode</h3>
-    <p>The most common cause is an incorrect keyboard ID.</p>
-    <div class="code-block">
-      <pre><code>sudo keyd monitor</code></pre>
-    </div>
-    <p>Turn the wheel and verify the ID matches your <code>KEYBOARD_ID</code> setting.</p>
+      <h3>Wheel does nothing after activating a mode</h3>
+      <p>The most common cause is an incorrect keyboard ID.</p>
+      <div class="code-block">
+        <pre><code>sudo keyd monitor</code></pre>
+      </div>
+      <p>Turn the wheel and verify the ID matches your <code>KEYBOARD_ID</code> setting.</p>
 
-    <h3>keyd reload fails</h3>
-    <div class="code-block">
-      <pre><code>sudo systemctl status keyd
+      <h3>keyd reload fails</h3>
+      <div class="code-block">
+        <pre><code>sudo systemctl status keyd
 sudo systemctl enable --now keyd
 sudo keyd reload 2>&1</code></pre>
-    </div>
+      </div>
 
-    <h3>Wheel doesn't work in any app</h3>
-    <p>Possible config syntax error. Clear Knobster's config:</p>
-    <div class="code-block">
-      <pre><code>sudo rm -f /etc/keyd/knobster.conf
+      <h3>Wheel doesn't work in any app</h3>
+      <p>Possible config syntax error. Clear Knobster's config:</p>
+      <div class="code-block">
+        <pre><code>sudo rm -f /etc/keyd/knobster.conf
 sudo systemctl restart keyd</code></pre>
-    </div>
+      </div>
 
-    <h3>Permission denied</h3>
-    <p>Knobster needs root to write to <code>/etc/keyd/</code>.</p>
-    <div class="code-block">
-      <pre><code>sudo ./knobster.sh</code></pre>
-    </div>
+      <h3>Permission denied</h3>
+      <p>Knobster needs root to write to <code>/etc/keyd/</code>.</p>
+      <div class="code-block">
+        <pre><code>sudo ./knobster.sh</code></pre>
+      </div>
 
-    <h3>Menu displays garbled characters</h3>
-    <p>Make sure your terminal supports UTF-8:</p>
-    <div class="code-block">
-      <pre><code>export LANG=en_US.UTF-8</code></pre>
-    </div>
+      <h3>Menu displays garbled characters</h3>
+      <p>Make sure your terminal supports UTF-8:</p>
+      <div class="code-block">
+        <pre><code>export LANG=en_US.UTF-8</code></pre>
+      </div>
 
-    <h3>Banner not showing</h3>
-    <p>Ensure <code>banner.txt</code> is in the same directory as <code>knobster.sh</code>.</p>
-    <div class="code-block">
-      <pre><code>ls -la ~/knobster/banner.txt</code></pre>
-    </div>
+      <h3>Banner not showing</h3>
+      <p>Ensure <code>banner.txt</code> is in the same directory as <code>knobster.sh</code>.</p>
+      <div class="code-block">
+        <pre><code>ls -la ~/knobster/banner.txt</code></pre>
+      </div>
 
-    <hr>
+      <hr>
 
-    <h2>Compatible keyboards</h2>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr><th>Keyboard</th><th>ID</th><th>Reported by</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Evision AK820</td><td><code>320f:505b</code></td><td>@epimient</td></tr>
-          <tr><td colspan="3"><em>Open an issue to add yours</em></td></tr>
-        </tbody>
-      </table>
-    </div>
+      <h2 id="keyboards">Compatible keyboards</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Keyboard</th><th>ID</th><th>Reported by</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Evision AK820</td><td><code>320f:505b</code></td><td>@epimient</td></tr>
+            <tr><td colspan="3"><em>Open an issue to add yours</em></td></tr>
+          </tbody>
+        </table>
+      </div>
 
-    <hr>
+      <hr>
 
-    <footer>
-      <p class="footer-links">
-        <a href="https://github.com/epimient/knobster">GitHub</a>
-        <a href="/">Knobster</a>
-        <a href="https://github.com/epimient/knobster/issues">Issues</a>
-      </p>
-      <p class="footer-copy">
-        &copy; 2026 Ing. Eduardo Pimienta. MIT License.
-      </p>
-    </footer>
+      <footer>
+        <p class="footer-links">
+          <a href="https://github.com/epimient/knobster">GitHub</a>
+          <a href="/">Knobster</a>
+          <a href="https://github.com/epimient/knobster/issues">Issues</a>
+        </p>
+        <p class="footer-copy">
+          &copy; 2026 Ing. Eduardo Pimienta. MIT License.
+        </p>
+      </footer>
 
-  </main>
+    </main>
+
+  </div>
 
 </body>
 </html>
