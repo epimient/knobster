@@ -22,16 +22,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-main {
-  max-width: 640px;
-  width: 100%;
-  padding: 4rem 1.5rem 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2.5rem;
-}
-
 a {
   color: #fff;
   text-decoration: none;
@@ -48,7 +38,66 @@ code {
   font-weight: 500;
 }
 
-/* ─── Hero ─── */
+/* ─── Navigation ─── */
+
+.nav {
+  width: 100%;
+  max-width: 960px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem 0;
+}
+
+.nav-logo {
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: -.02em;
+  border-bottom: none;
+}
+
+.nav-logo:hover {
+  border-bottom: none;
+  opacity: .8;
+}
+
+.nav-links {
+  display: flex;
+  gap: .25rem;
+}
+
+.nav-link {
+  font-size: .85rem;
+  font-weight: 600;
+  padding: .35rem .75rem;
+  border-radius: 6px;
+  border-bottom: none;
+  transition: all .12s;
+  color: #888;
+}
+
+.nav-link:hover {
+  color: #fff;
+  background: #141414;
+  border-bottom: none;
+}
+
+.nav-link.active {
+  color: #fff;
+  background: #141414;
+}
+
+/* ─── Landing page ─── */
+
+main {
+  max-width: 640px;
+  width: 100%;
+  padding: 3rem 1.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+}
 
 .hero {
   text-align: center;
@@ -93,11 +142,7 @@ code {
   flex-shrink: 0;
 }
 
-/* ─── Command box ─── */
-
-.cmd {
-  width: 100%;
-}
+/* ─── Command box (shared) ─── */
 
 .cmd-box {
   background: #141414;
@@ -107,6 +152,7 @@ code {
   display: flex;
   align-items: center;
   gap: .75rem;
+  width: 100%;
 }
 
 .cmd-box code {
@@ -146,7 +192,11 @@ code {
   color: #fff;
 }
 
-/* ─── Modes ─── */
+.cmd {
+  width: 100%;
+}
+
+/* ─── Modes grid ─── */
 
 .modes {
   width: 100%;
@@ -225,9 +275,205 @@ footer a {
   font-weight: 700;
 }
 
+/* ═══════════════════════════════════════════════
+   DOCS PAGE
+   ═══════════════════════════════════════════════ */
+
+.docs-page {
+  align-items: stretch;
+}
+
+.docs-content {
+  max-width: 720px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  font-weight: 400;
+  line-height: 1.7;
+}
+
+.docs-content h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.docs-content h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-top: 1rem;
+}
+
+.docs-content h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-top: .5rem;
+}
+
+.docs-content h4 {
+  font-size: .95rem;
+  font-weight: 700;
+  margin-top: .25rem;
+  color: #ccc;
+}
+
+.docs-content p {
+  font-weight: 400;
+  color: #aaa;
+  font-size: .9rem;
+}
+
+.docs-content strong {
+  font-weight: 600;
+  color: #fff;
+}
+
+.docs-content hr {
+  border: none;
+  border-top: 1.5px solid #141414;
+  margin: 1rem 0;
+}
+
+.docs-content ul, .docs-content ol {
+  padding-left: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+}
+
+.docs-content li {
+  font-weight: 400;
+  color: #aaa;
+  font-size: .9rem;
+}
+
+.docs-content a {
+  font-weight: 600;
+}
+
+.docs-content .cmd-box {
+  margin: .5rem 0;
+}
+
+.docs-subtitle {
+  color: #666 !important;
+  font-size: 1rem !important;
+  font-weight: 500 !important;
+}
+
+/* Code block */
+.code-block {
+  background: #141414;
+  border: 1.5px solid #2a2a2a;
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+  margin: .25rem 0;
+}
+
+.code-block pre {
+  font-family: 'Noto Sans Mono', 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: .8rem;
+  font-weight: 500;
+  color: #ccc;
+  line-height: 1.6;
+  white-space: pre;
+}
+
+.code-block code {
+  font-size: inherit;
+}
+
+/* Diagram */
+.diagram {
+  background: #141414;
+  border: 1.5px solid #2a2a2a;
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+  margin: .5rem 0;
+}
+
+.diagram pre {
+  font-family: 'Noto Sans Mono', 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: .75rem;
+  font-weight: 500;
+  color: #888;
+  line-height: 1.6;
+  white-space: pre;
+}
+
+/* Note */
+.note {
+  background: #141414;
+  border-left: 3px solid #555;
+  border-radius: 0 8px 8px 0;
+  padding: .85rem 1rem;
+  font-size: .85rem;
+  color: #aaa;
+  font-weight: 400;
+  line-height: 1.6;
+  margin: .5rem 0;
+}
+
+.note strong {
+  color: #fff;
+}
+
+/* Tables */
+.table-wrap {
+  overflow-x: auto;
+  margin: .5rem 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .85rem;
+  font-weight: 400;
+}
+
+table th {
+  text-align: left;
+  font-weight: 700;
+  font-size: .8rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  padding: .6rem .8rem;
+  border-bottom: 1.5px solid #2a2a2a;
+}
+
+table td {
+  padding: .6rem .8rem;
+  color: #aaa;
+  border-bottom: 1.5px solid #141414;
+}
+
+table td code {
+  font-size: .8rem;
+  color: #ccc;
+}
+
+table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Docs footer */
+.docs-content > footer {
+  margin-top: 1rem;
+}
+
 /* ─── Responsive ─── */
 
 @media (max-width: 500px) {
+  .nav {
+    padding: 1rem 1rem 0;
+  }
+
   main {
     padding: 2.5rem 1rem 1.5rem;
     gap: 2rem;
@@ -248,5 +494,13 @@ footer a {
 
   .copy {
     text-align: center;
+  }
+
+  .docs-content {
+    padding: 2rem 1rem 2.5rem;
+  }
+
+  .docs-content h1 {
+    font-size: 1.5rem;
   }
 }

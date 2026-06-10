@@ -5,23 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Knobster</title>
   <meta name="description" content="Controla la rueda de tu teclado como quieras.">
-
   <meta property="og:title" content="Knobster">
   <meta property="og:description" content="Controla la rueda de tu teclado como quieras.">
   <meta property="og:url" content="https://knobster.dev">
   <meta property="og:type" content="website">
-
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;800&amp;family=Noto+Sans+Mono:wght@500;700&amp;display=swap" rel="stylesheet">
-
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <main>
+  <nav class="nav">
+    <a href="/" class="nav-logo">Knobster</a>
+    <div class="nav-links">
+      <a href="/docs" class="nav-link active">Docs</a>
+    </div>
+  </nav>
 
+  <main>
     <section class="hero">
       <pre class="ascii" aria-label="Knobster logo"> _  __            _         _            
 | |/ /_ __   ___ | |__  ___| |_ ___ _ __ 
@@ -70,8 +72,8 @@
       <a href="https://github.com/epimient/knobster">View on GitHub →</a>
       <span>MIT · <a href="https://github.com/epimient">@epimient</a></span>
     </footer>
-
   </main>
+
   <script src="js/main.js"></script>
 </body>
 </html>
