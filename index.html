@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Knobster — Controla la rueda de tu teclado</title>
+  <meta name="description" content="Knobster es una herramienta CLI interactiva para Linux que convierte la rueda de volumen de tu teclado en controles para edición, programación o lo que tú quieras.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Knobster — Controla tu teclado">
+  <meta property="og:description" content="Convierte la rueda de tu teclado en controles para edición, programación y más.">
+  <meta property="og:url" content="https://knobster.vercel.app">
+  <meta property="og:type" content="website">
+
+  <!-- Favicon -->
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main>
+
+    <!-- ─── Hero ─── -->
+    <section class="hero">
+      <pre class="ascii-logo" aria-label="Knobster logo"> _  __            _         _
+| |/ /_ __   ___ | |__  ___| |_ ___ _ __
+| ' /| '_ \ / _ \| '_ \/ __| __/ _ \ '__|
+| . \| | | | (_) | |_) \__ \ ||  __/ |
+|_|\_\_| |_|\___/|_.__/|___/\__\___|_|</pre>
+      <h1>Knobster</h1>
+      <p class="tagline">Controla la rueda de tu teclado como quieras.</p>
+    </section>
+
+    <!-- ─── Install ─── -->
+    <section class="install-section">
+      <div class="install-box">
+        <code id="install-code">curl -fsSL https://raw.githubusercontent.com/epimient/knobster/main/install.sh | bash</code>
+        <button class="copy-btn" id="copy-btn">📋 Copy</button>
+      </div>
+    </section>
+
+    <!-- ─── Features ─── -->
+    <section class="features">
+      <article class="feature-card">
+        <h3>🎬 Editar Timeline</h3>
+        <p>Rueda →→→ / ←←← &nbsp;·&nbsp; Botón Play</p>
+      </article>
+      <article class="feature-card">
+        <h3>💻 Programar Cursor</h3>
+        <p>Rueda ↑ / ↓ &nbsp;·&nbsp; Botón Enter</p>
+      </article>
+      <article class="feature-card">
+        <h3>🔊 Multimedia</h3>
+        <p>Rueda Volumen &nbsp;·&nbsp; Botón Silenciar</p>
+      </article>
+      <article class="feature-card">
+        <h3>⚙ Personalizar</h3>
+        <p>Tu propia configuración a medida</p>
+      </article>
+    </section>
+
+    <!-- ─── Quick Commands ─── -->
+    <section class="commands-section">
+      <h2>Comandos rápidos</h2>
+      <div class="commands-grid">
+        <code class="command-tag">knobster on</code>
+        <code class="command-tag">knobster off</code>
+        <code class="command-tag">knobster status</code>
+      </div>
+    </section>
+
+    <!-- ─── Footer ─── -->
+    <footer>
+      <p>
+        <a href="https://github.com/epimient/knobster">Ver en GitHub →</a>
+      </p>
+      <p>
+        MIT &nbsp;·&nbsp; <a href="https://github.com/epimient">@epimient</a>
+        &nbsp;·&nbsp; Ing. Eduardo Pimienta
+      </p>
+    </footer>
+
+  </main>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
