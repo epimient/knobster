@@ -45,25 +45,14 @@ code {
   max-width: 960px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   padding: 1.25rem 1.5rem 0;
-}
-
-.nav-logo {
-  font-size: 1rem;
-  font-weight: 800;
-  letter-spacing: -.02em;
-  border-bottom: none;
-}
-
-.nav-logo:hover {
-  border-bottom: none;
-  opacity: .8;
 }
 
 .nav-links {
   display: flex;
-  gap: .25rem;
+  align-items: center;
+  gap: .1rem;
 }
 
 .nav-link {
@@ -85,6 +74,14 @@ code {
 .nav-link.active {
   color: #fff;
   background: #141414;
+}
+
+.nav-sep {
+  color: #333;
+  font-family: 'Noto Sans Mono', monospace;
+  font-size: .75rem;
+  font-weight: 500;
+  padding: 0 .1rem;
 }
 
 /* ─── Landing page ─── */
