@@ -14,10 +14,22 @@ set -uo pipefail
 #  CONFIGURACIÓN
 # ═══════════════════════════════════════════════
 
+VERSION="1.0.0"
 CONFIG_FILE="/etc/keyd/knobster.conf"
-KEYBOARD_ID="${KEYBOARD_ID:-320f:505b:d8fffecf}"
+USER_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/knobster/config"
 EDITOR="${EDITOR:-${VISUAL:-nano}}"
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+
+# ───────────────────────────────────────────────
+#  Cargar configuración de usuario
+# ───────────────────────────────────────────────
+
+if [[ -f "$USER_CONFIG" ]]; then
+    # shellcheck source=/dev/null
+    source "$USER_CONFIG"
+fi
+
+KEYBOARD_ID="${KEYBOARD_ID:-320f:505b}"
 
 # ═══════════════════════════════════════════════
 #  COLORES
@@ -78,17 +90,20 @@ read_banner() {
 
 usage() {
     cat <<EOF
+Knobster v$VERSION — Controla la rueda de tu teclado.
+
 Uso: $(basename "$0") [OPCIÓN]
 
-Controla la rueda de tu teclado desde la terminal.
-
 Opciones:
-  on          Activar el último modo (edición por defecto)
+  on          Activar modo edición (timeline)
   off         Volver a volumen normal
   status      Mostrar estado actual
+  --version   Mostrar versión
   --help, -h  Mostrar esta ayuda
 
 Sin argumentos abre el menú interactivo.
+
+Configuración de usuario: $USER_CONFIG
 EOF
     exit 0
 }
@@ -536,6 +551,7 @@ main_menu() {
 
 case "${1:-}" in
     --help | -h) usage ;;
+    --version) echo "Knobster v$VERSION"; exit 0 ;;
     on)
         require_root
         require_keyd

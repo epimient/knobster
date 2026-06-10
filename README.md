@@ -3,6 +3,8 @@
   <img src="https://img.shields.io/badge/platform-linux-lightgrey" alt="Platform">
   <img src="https://img.shields.io/badge/dependency-keyd-orange" alt="Dependency">
   <img src="https://img.shields.io/badge/license-MIT-green" alt="License">
+  <img src="https://img.shields.io/badge/PRs-welcome-brightgreen" alt="PRs welcome">
+  <a href="https://github.com/epimient/knobster/actions"><img src="https://github.com/epimient/knobster/actions/workflows/lint.yml/badge.svg" alt="CI"></a>
 </p>
 
 <br>
@@ -88,6 +90,18 @@ El archivo `/etc/keyd/default.conf` nunca se modifica. Tu configuración general
 ---
 
 ## Instalación
+
+### Instalación rápida (1-liner)
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/epimient/knobster/main/install.sh | bash
+```
+
+Esto instala keyd si es necesario, detecta tu teclado automáticamente y deja Knobster listo para usar.
+
+> **Nota:** Para distros basadas en Ubuntu/Debian el instalador compila keyd desde fuente, lo que requiere `git`, `build-essential` y unos segundos.
+
+### Instalación manual
 
 ### 1. Instalar keyd
 
@@ -505,9 +519,30 @@ ls -la ~/knobster/banner.txt
 
 ---
 
+## Teclados compatibles
+
+| Teclado | ID | Reportado por |
+|---------|----|---------------|
+| Evision AK820 | `320f:505b` | @epimient |
+| _¿Tu teclado?_ | `?` | _Abre un issue_ |
+
+Si Knobster funciona con tu teclado, abre un [Issue](https://github.com/epimient/knobster/issues/new?template=feature_request.md) para agregarlo a la lista.
+
+---
+
+## Contribuir
+
+Las contribuciones son bienvenidas. Revisa [`CONTRIBUTING.md`](CONTRIBUTING.md) para guía de estilo y proceso.
+
+- [Reportar un bug](https://github.com/epimient/knobster/issues/new?template=bug_report.md)
+- [Solicitar una feature](https://github.com/epimient/knobster/issues/new?template=feature_request.md)
+- [Ver changelog](CHANGELOG.md)
+
+---
+
 ## Licencia
 
-Este proyecto está bajo la licencia MIT. Puedes usarlo, modificarlo y distribuirlo libremente.
+MIT © 2026 Ing. Eduardo Pimienta
 
 ---
 
@@ -522,5 +557,11 @@ Proyecto originalmente concebido para el teclado **AK820** y su comunidad Linux.
 ---
 
 <p align="center">
+  <a href="https://github.com/epimient/knobster">GitHub</a>
+  ·
+  <a href="https://github.com/epimient/knobster/issues">Issues</a>
+  ·
+  <a href="CONTRIBUTING.md">Contribuir</a>
+  <br>
   <sub>Hecho con ❤️ y bash</sub>
 </p>
