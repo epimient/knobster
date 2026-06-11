@@ -70,13 +70,13 @@ install_keyd() {
         ubuntu|debian)
             log_info "Detectado: $distro"
             log_info "Instalando dependencias..."
-            apt update -qq && apt install -y -qq git build-essential
+            sudo apt update -qq && sudo apt install -y -qq git build-essential
             log_info "Clonando keyd..."
             git clone --depth 1 https://github.com/rvaiya/keyd /tmp/keyd
             cd /tmp/keyd || exit
             make
-            make install
-            systemctl enable --now keyd
+            sudo make install || { log_error "Error al instalar keyd."; exit 1; }
+            sudo systemctl enable --now keyd 2>/dev/null || log_warn "No se pudo habilitar keyd automáticamente."
             cd "$SCRIPT_DIR" || exit
             rm -rf /tmp/keyd
             ;;
@@ -89,7 +89,7 @@ install_keyd() {
                 paru -S --noconfirm keyd
             else
                 log_info "Instalando yay primero..."
-                pacman -S --noconfirm --needed git base-devel
+                sudo pacman -S --noconfirm --needed git base-devel
                 git clone --depth 1 https://aur.archlinux.org/yay.git /tmp/yay
                 cd /tmp/yay || exit
                 makepkg -si --noconfirm
@@ -97,16 +97,16 @@ install_keyd() {
                 rm -rf /tmp/yay
                 yay -S --noconfirm keyd
             fi
-            systemctl enable --now keyd
+            sudo systemctl enable --now keyd 2>/dev/null || log_warn "No se pudo habilitar keyd automáticamente."
             ;;
         fedora)
             log_info "Detectado: Fedora"
-            dnf install -y git gcc
+            sudo dnf install -y git gcc
             git clone --depth 1 https://github.com/rvaiya/keyd /tmp/keyd
             cd /tmp/keyd || exit
             make
-            make install
-            systemctl enable --now keyd
+            sudo make install || { log_error "Error al instalar keyd."; exit 1; }
+            sudo systemctl enable --now keyd 2>/dev/null || log_warn "No se pudo habilitar keyd automáticamente."
             cd "$SCRIPT_DIR" || exit
             rm -rf /tmp/keyd
             ;;
@@ -116,14 +116,19 @@ install_keyd() {
             git clone --depth 1 https://github.com/rvaiya/keyd /tmp/keyd
             cd /tmp/keyd || exit
             make
-            make install
-            systemctl enable --now keyd
+            sudo make install || { log_error "Error al instalar keyd."; exit 1; }
+            sudo systemctl enable --now keyd 2>/dev/null || log_warn "No se pudo habilitar keyd automáticamente."
             cd "$SCRIPT_DIR" || exit
             rm -rf /tmp/keyd
             ;;
     esac
 
-    log_ok "keyd instalado correctamente."
+    if command -v keyd &>/dev/null; then
+        log_ok "keyd instalado correctamente."
+    else
+        log_error "keyd no se instaló correctamente."
+        exit 1
+    fi
 }
 
 # ───────────────────────────────────────────────
@@ -131,13 +136,13 @@ install_keyd() {
 # ───────────────────────────────────────────────
 
 detect_keyboard_id() {
-    log_step "Detectando ID de tu teclado..."
+    log_step "Detectando ID de tu teclado..." >&2
 
-    echo
-    echo -e "  ${YELLOW}⚠${RESET} Gira la rueda de ${BOLD}tu teclado${RESET} ahora."
-    echo "  El instalador detectará automáticamente el ID."
-    echo
-    echo -e "  ${GRAY}Presiona Enter cuando estés listo...${RESET}"
+    echo >&2
+    echo -e "  ${YELLOW}⚠${RESET} Gira la rueda de ${BOLD}tu teclado${RESET} ahora." >&2
+    echo "  El instalador detectará automáticamente el ID." >&2
+    echo >&2
+    echo -e "  ${GRAY}Presiona Enter cuando estés listo...${RESET}" >&2
     read -r _
 
     local timeout=15
@@ -145,17 +150,17 @@ detect_keyboard_id() {
     output=$(timeout "$timeout" keyd monitor 2>/dev/null | head -5)
 
     if [[ -z "$output" ]]; then
-        echo
-        echo -e "  ${YELLOW}⚠${RESET} No se detectó ninguna señal."
-        echo "  Asegúrate de girar la rueda del teclado."
-        echo
+        echo >&2
+        echo -e "  ${YELLOW}⚠${RESET} No se detectó ninguna señal." >&2
+        echo "  Asegúrate de girar la rueda del teclado." >&2
+        echo >&2
         read -rp "  Escribe manualmente el ID del teclado (ej: 320f:505b): " manual_id
         if [[ -n "$manual_id" ]]; then
             echo "$manual_id"
             return 0
         fi
         echo "320f:505b"
-        log_warn "Usando ID por defecto: 320f:505b"
+        log_warn "Usando ID por defecto: 320f:505b" >&2
         return 0
     fi
 
@@ -164,12 +169,12 @@ detect_keyboard_id() {
 
     if [[ -n "$detected_id" ]]; then
         echo "$detected_id"
-        log_ok "Teclado detectado: $detected_id"
+        log_ok "Teclado detectado: $detected_id" >&2
         return 0
     fi
 
     echo "320f:505b"
-    log_warn "No se pudo extraer ID, usando: 320f:505b"
+    log_warn "No se pudo extraer ID, usando: 320f:505b" >&2
 }
 
 # ───────────────────────────────────────────────
