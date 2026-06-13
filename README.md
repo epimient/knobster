@@ -64,8 +64,8 @@ El archivo `/etc/keyd/default.conf` nunca se modifica. Tu configuración general
 
 ```
   ┌──────────────┐     ┌──────────────┐     ┌──────────────────┐
-  │  Giras la     │────→│  keyd        │────→│  Acción asignada │
-  │  rueda AK820  │     │  intercepta  │     │  (flechas,       │
+  │  Giras la    │────→│  keyd        │────→│  Acción asignada │
+  │  rueda AK820 │     │  intercepta  │     │  (flechas,       │
   │              │     │  la señal    │     │   macros, etc.)  │
   └──────────────┘     └──────────────┘     └──────────────────┘
                               ▲
@@ -267,13 +267,13 @@ Esto abre el menú principal con el diseño visual completo:
   ├──────────────────────────────────────────────────────┤
   │                                                      │
   │    [1]  Editar Timeline                              │
-  │         ↻ Rueda: →→→ / ←←←    ● Botón: Play         │
+  │         ↻ Rueda: →→→ / ←←←    ● Botón: Play          │
   │                                                      │
   │    [2]  Programar Cursor                             │
-  │         ↻ Rueda: ↑ / ↓        ● Botón: Enter        │
+  │         ↻ Rueda: ↑ / ↓        ● Botón: Enter         │
   │                                                      │
   │    [3]  Multimedia                                   │
-  │         ↻ Rueda: volumen      ● Botón: Silenciar    │
+  │         ↻ Rueda: volumen      ● Botón: Silenciar     │
   │                                                      │
   │    [4]  Personalizar                                 │
   │         ⚙ Configuración a tu medida                  │
@@ -549,8 +549,6 @@ MIT © 2026 Ing. Eduardo Pimienta
 ## Autor
 
 **Ing. Eduardo Pimienta**
-
-_Desarrollador de software, creador de contenido y entusiasta de los teclados mecánicos._
 
 Proyecto originalmente concebido para el teclado **AK820** y su comunidad Linux.
 
